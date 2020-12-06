@@ -1,0 +1,16 @@
+var = load ("data.mat")
+
+meas = var.measurementData
+
+var2 = load("grdtruth.mat")
+
+gtruth = var2.groundTruth
+
+% Plotting the results of the x dimension
+plot(gtruth(:,1))
+
+hold on
+
+% Plotting the measurements
+plot(meas(:,1));
+legend({' True Data','Measurement Data'})
