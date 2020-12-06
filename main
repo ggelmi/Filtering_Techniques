@@ -81,7 +81,15 @@ measurementData = Y';
 
 save data.mat measurementData
 
+groundTruth = X'
+
+save grdtruth.mat groundTruth  
+
 var = load ("data.mat")
 
 meas = var.measurementData
+
+var2 = load("grdtruth.mat")
+
+gtruth = var2.groundTruth
 
