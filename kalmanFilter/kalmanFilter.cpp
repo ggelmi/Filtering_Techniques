@@ -28,21 +28,27 @@ void linearUpdate(Eigen::Vector2d& predicted_state, MatrixXd& predicted_cov,
 	
         Eigen::Vector2d innovation = meas_vector - (H*predicted_state);
       
-        std::cout << "innovation : \n" << pred_state << std::endl;
+        std::cout << "innovation : \n" << innovation<< std::endl;
 
-        std::cout << "pred_cov Matrix : \n" << pred_cov << endl;
+        //std::cout << "pred_cov Matrix : \n" << predicted_cov << endl;
 	// Computing the predicted covariance of the measurement
 	
 	Eigen::MatrixXd S_K = (H*predicted_cov*H.transpose())+ R;
-
+	
+	std::cout << "pred_meas_cov Matrix : \n" << S_K << endl;
+	
 	// Computing the kalman gain
 	
-	Eigen::MatrixXd K = (predicted_cov*H.transpose()) * S_K.inverse();
+	Eigen::MatrixXd PH_transpose = predicted_cov*H.transpose();
 
+	Eigen::MatrixXd K = PH_transpose * S_K.inverse();
+	
+	std::cout << "kalman gain Matrix : \n" << K << endl;
 	// updating the state
 	
 	updated_state = predicted_state +  K*innovation;
-	updated_cov = updated_cov - (K*S_K*K.transpose());
+        
+	updated_cov = predicted_cov - (K*S_K*K.transpose());
 
 
 	}
@@ -51,6 +57,7 @@ int main () {
                                     << EIGEN_MINOR_VERSION << endl ;
 
         std::ifstream input("/home/guuto/octave/Filtering_Techniques/data.mat");
+	std::ofstream output("/home/guuto/octave/Filtering_Techniques/state_estimates.mat");
 
 	int counter  = 0;
         double x,y;
@@ -67,7 +74,7 @@ int main () {
 	//	std::cout << "X = " << x << " "<< "Y= " << y << endl;
 		Eigen::Vector2d meas_vector(x,y);
 		measData.push_back(meas_vector);
-		std:: cout << "measData " << measData[i] << std::endl;
+		std:: cout << "measData : \n " << measData[i] << std::endl;
 		i++;
 	    }
 	    counter++;
@@ -98,7 +105,7 @@ int main () {
         
 	// Defining the Process Noise
 	//
-	MatrixXd Q = P_0*2;
+	MatrixXd Q = P_0*20;
 
 	std::cout << "Process Noise Matrix : \n" << Q << endl;
 	
@@ -167,7 +174,9 @@ int main () {
 		X.push_back(updated_state);
 		P.push_back(updated_cov);
 
+		// Saving the state estimates into a file
 
+		output << updated_state(0) << "      "<< updated_state(1) << std::endl;
 	
 
 	    }
