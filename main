@@ -5,7 +5,7 @@
 pkg load statistics
 
 %Defining the size of the data points
-N = 10
+N = 20
 
 
 % Define prior state and Covariance
@@ -53,7 +53,7 @@ H = [1 0; 0 1];
 m = size(H,1);
 
 % Measurment covariance
-R = 20*diag(ones(m,1));
+R = 200*diag(ones(m,1));
 
 %--------------%This function generates the simulated measurements
 
