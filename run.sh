@@ -1,6 +1,6 @@
 #!/bin/bash
 
-octave  main
+octave  simulate
 
 pushd /home/guuto/octave/Filtering_Techniques/kalmanFilter/build
 
@@ -9,5 +9,5 @@ make
 ./filter_exe
 popd
 
-octave --persist simulate
+octave --persist visualize
 
