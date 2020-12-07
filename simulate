@@ -1,10 +1,13 @@
-var = load ("data.mat")
+var = load ("data.mat");
 
 meas = var.measurementData
 
-var2 = load("grdtruth.mat")
+var2 = load("grdtruth.mat");
 
 gtruth = var2.groundTruth
+
+state_estimates = load("state_estimates.mat")
+
 
 % Plotting the results of the x dimension
 plot(gtruth(:,1))
@@ -13,4 +16,9 @@ hold on
 
 % Plotting the measurements
 plot(meas(:,1));
-legend({' True Data','Measurement Data'})
+
+plot(state_estimates(:,1));
+
+legend({' True Data','Measurement Data', 'state_estimates'})
+
+
