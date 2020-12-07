@@ -1,3 +1,6 @@
+% Visualization script
+% This octave script displays true, measurement and state_estimate data
+
 var = load ("data.mat");
 
 meas = var.measurementData
