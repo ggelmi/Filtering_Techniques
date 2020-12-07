@@ -1,4 +1,4 @@
 find_package(Eigen3 REQUIRED)
 
-add_executable(eigen-demo kalmanFilter.cpp)
-target_link_libraries(eigen-demo PRIVATE Eigen3::Eigen)
+add_executable(filter_exe kalmanFilter.cpp)
+target_link_libraries(filter_exe PRIVATE Eigen3::Eigen)
