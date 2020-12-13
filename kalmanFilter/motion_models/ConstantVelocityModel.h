@@ -8,16 +8,17 @@ class ConstantVelocityModel: public  MotionModelInterface
 
   public:
 
-   ConstantVelocityModel(const double dtime, const double sig, const unsigned int dimension);
+   ConstantVelocityModel(const double& dtime, const double& sig, unsigned int& dimension);
 
    ~ConstantVelocityModel(){ };
-   const unsigned int getDimension();
+
+   unsigned int getDimension() const ;
 	  
-   Eigen::VectorXd predictState( const Eigen::VectorXd currState);
+   Eigen::VectorXd predictState( const Eigen::VectorXd& currState);
 
-   Eigen::MatrixXd getStateTransitionMatrix();
+   Eigen::MatrixXd getStateTransitionMatrix(const Eigen::VectorXd& currState) ;
 
-   Eigen::MatrixXd  getProcessNoiseMatrix();
+   Eigen::MatrixXd  getProcessNoiseMatrix() ;
 
 
    private:

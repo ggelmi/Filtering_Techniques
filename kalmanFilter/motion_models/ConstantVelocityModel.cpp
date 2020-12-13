@@ -6,8 +6,8 @@
 
 
 
-ConstantVelocityModel::ConstantVelocityModel(const double dtime, 
-		                             const double sig, const unsigned int dimension)
+ConstantVelocityModel::ConstantVelocityModel(const double& dtime, 
+		                             const double& sig, unsigned int& dimension)
  {
 
 	dt = dtime;
@@ -15,48 +15,49 @@ ConstantVelocityModel::ConstantVelocityModel(const double dtime,
 	DIM = dimension;
  }
  
-const unsigned int ConstantVelocityModel:: getDimension()
-   {
+unsigned int ConstantVelocityModel:: getDimension() const
+ {
 
      return DIM;
-   }
+ }
 
-   Eigen::VectorXd ConstantVelocityModel:: predictState( const Eigen::VectorXd currState)
+Eigen::VectorXd ConstantVelocityModel:: predictState( const Eigen::VectorXd& currState)
    {
 
      
-     Eigen::VectorXd predicted_state =  getStateTransitionMatrix()*currState;
+     Eigen::VectorXd predicted_state =  getStateTransitionMatrix(currState)*currState;
 
 
      return predicted_state; 
 
    }
 
-Eigen::MatrixXd ConstantVelocityModel:: getStateTransitionMatrix()
-   {
-	//constexpr unsigned int dim = getDimension();
-        Eigen::Matrix<double, getDimension(), getDimension()> stateTransition;
 
-	stateTransition << 1,0,dt,0,
-		           0,1,0,dt,
-                           0,0,1,0,
-			   0,0,0,0;
+Eigen::MatrixXd ConstantVelocityModel:: getStateTransitionMatrix(const Eigen::VectorXd& currState) 
+   {
+	
+	Eigen::MatrixXd stateTransitionMatrix (getDimension(),getDimension());
+
+	stateTransitionMatrix << 1,0,dt,0,
+       		                 0,1,0,dt,
+                                 0,0,1,0,
+			         0,0,0,0;
 
        return stateTransitionMatrix;	
 	                  
    }
 
-Eigen::MatrixXd ConstantVelocityModel::  getProcessNoiseMatrix()
+Eigen::MatrixXd ConstantVelocityModel::  getProcessNoiseMatrix() 
    {
-       constexpr unsigned int dim = getDimension();
-       Eigen::Matrix<double, dim, dim> processNoise;
+       Eigen::MatrixXd processNoiseMatrix(getDimension(),getDimension());
 
-       processNoise << std::pow(dt, 4)/4,  0, std::pow(dt, 3)/2,0,
+       processNoiseMatrix << std::pow(dt, 4)/4,  0, std::pow(dt, 3)/2,0,
                        0, std::pow(dt, 4)/4, 0, std::pow(dt, 3)/2,
                        std::pow(dt, 3)/2, 0,  std::pow(dt, 2), 0,
                        0,std::pow(dt, 3)/2, 0,    std::pow(dt, 2);
-
-       return processNoise;
+       
+       processNoiseMatrix = std::pow(sigma,2) * processNoiseMatrix;
+       return processNoiseMatrix;
    }
 
 
