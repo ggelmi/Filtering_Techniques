@@ -3,11 +3,11 @@
 #include"CoordinatedTurnModel.h"
 
 CoordinatedTurnModel::CoordinatedTurnModel(const double& dtime,
-                                             const double& sigPhi,const double& sigOmega, unsigned int& dimension)
+                                             const double& sigV,const double& sigOmega, unsigned int& dimension)
  {
 
         dt = dtime;
-	sigmaPhi= sigPhi;
+	sigmaV= sigV;
         sigmaOmega = sigOmega;
         DIM = dimension;
  }
@@ -50,4 +50,27 @@ Eigen::MatrixXd CoordinatedTurnModel:: getStateTransitionMatrix(const Eigen::Vec
        return stateTransitionMatrix;
 
    }
+Eigen::MatrixXd CoordinatedTurnModel:: getProcessNoiseMatrix() 
+  {
 
+        Eigen::MatrixXd G(getDimension(),2);
+	
+	G << 0, 0,
+	     0, 0,
+	     1, 0,
+	     0, 0,
+	     0, 1;
+
+	Eigen::MatrixXd diagSigmas(2,2);
+
+	diagSigmas << sigmaV, 0,
+		      0, sigmaOmega;
+
+       Eigen::MatrixXd processNoiseMatrix (getDimension(),getDimension());
+ 
+       processNoiseMatrix = G*diagSigmas*G.transpose();
+
+       return processNoiseMatrix;
+
+
+  }
