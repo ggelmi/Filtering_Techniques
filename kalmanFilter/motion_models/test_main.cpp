@@ -48,7 +48,7 @@ Eigen::VectorXd predState =  ct_model.predictState(currState);
 
 std::cout << "The predicted state : \n " << predState << std::endl;
 
-std::cout << "The processNoise : \n" << ct_model.getProcessNoiseMatrix() << std::endl;
+std::cout << "The processNoise : \n" << ct_model.getProcessNoiseCovariance() << std::endl;
 
 std::cout << "The jacobian : \n" << ct_model.getJacobianMatrix(currState) << std::endl;
 

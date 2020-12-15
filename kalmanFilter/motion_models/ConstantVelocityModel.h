@@ -18,7 +18,7 @@ class ConstantVelocityModel: public  MotionModelInterface
 
    Eigen::MatrixXd getStateTransitionMatrix(const Eigen::VectorXd& currState) ;
 
-   Eigen::MatrixXd  getProcessNoiseMatrix() ;
+   Eigen::MatrixXd  getProcessNoiseCovariance() ;
 
 
    private:

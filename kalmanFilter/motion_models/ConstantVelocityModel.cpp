@@ -47,7 +47,7 @@ Eigen::MatrixXd ConstantVelocityModel:: getStateTransitionMatrix(const Eigen::Ve
 	                  
    }
 
-Eigen::MatrixXd ConstantVelocityModel::  getProcessNoiseMatrix() 
+Eigen::MatrixXd ConstantVelocityModel::  getProcessNoiseCovariance() 
    {
        Eigen::MatrixXd processNoiseMatrix(getDimension(),getDimension());
 

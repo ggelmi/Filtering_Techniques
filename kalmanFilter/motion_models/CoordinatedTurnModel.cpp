@@ -59,7 +59,7 @@ Eigen::MatrixXd CoordinatedTurnModel:: getJacobianMatrix(const Eigen::VectorXd& 
        return jacobianMatrix;
 
    }
-Eigen::MatrixXd CoordinatedTurnModel:: getProcessNoiseMatrix() 
+Eigen::MatrixXd CoordinatedTurnModel:: getProcessNoiseCovariance() 
   {
 
         Eigen::MatrixXd G(getDimension(),2);

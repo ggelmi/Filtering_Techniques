@@ -18,7 +18,7 @@ class CoordinatedTurnModel: public  MotionModelInterface
 
    Eigen::MatrixXd getStateTransitionMatrix(const Eigen::VectorXd& currState) ;
 
-   Eigen::MatrixXd  getProcessNoiseMatrix() ;
+   Eigen::MatrixXd  getProcessNoiseCovariance() ;
 
    Eigen::MatrixXd getJacobianMatrix(const Eigen::VectorXd& currState) ;
 
