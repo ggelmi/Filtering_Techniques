@@ -23,10 +23,10 @@ Eigen::VectorXd CoordinatedTurnModel:: predictState( const Eigen::VectorXd& curr
 
      Eigen::VectorXd x(getDimension());
      
-     x << dt*currState(3)*cos(currState(4)), 
-          dt*currState(3)*sin(currState(4)),
+     x << dt*currState(2)*cos(currState(3)), 
+          dt*currState(2)*sin(currState(3)),
           0,
-	  dt*currState(5),
+	  dt*currState(4),
 	  0;
 
      Eigen::VectorXd predicted_state =  currState + x;
@@ -39,15 +39,24 @@ Eigen::VectorXd CoordinatedTurnModel:: predictState( const Eigen::VectorXd& curr
 Eigen::MatrixXd CoordinatedTurnModel:: getStateTransitionMatrix(const Eigen::VectorXd& currState)
    {
 
-        Eigen::MatrixXd stateTransitionMatrix (getDimension(),getDimension());
+	Eigen::MatrixXd stateTransitionMatrix (getDimension(),getDimension());
 
-        stateTransitionMatrix << 1,0,dt*cos(currState(4)),-dt*currState(4)*sin(currState(4)),0,
-                                 0,1,dt*sin(currState(4)),dt*currState(3)*cos(currState(4)),0,
+
+	return stateTransitionMatrix;
+
+   }
+Eigen::MatrixXd CoordinatedTurnModel:: getJacobianMatrix(const Eigen::VectorXd& currState)
+   {
+
+        Eigen::MatrixXd jacobianMatrix (getDimension(),getDimension());
+
+        jacobianMatrix << 1,0,dt*cos(currState(3)),-dt*currState(2)*sin(currState(3)),0,
+                                 0,1,dt*sin(currState(3)),dt*currState(2)*cos(currState(3)),0,
                                  0,0,1,0,0,
                                  0,0,0,1,dt,
 	                         0,0,0,0,1;
 
-       return stateTransitionMatrix;
+       return jacobianMatrix;
 
    }
 Eigen::MatrixXd CoordinatedTurnModel:: getProcessNoiseMatrix() 
@@ -63,8 +72,8 @@ Eigen::MatrixXd CoordinatedTurnModel:: getProcessNoiseMatrix()
 
 	Eigen::MatrixXd diagSigmas(2,2);
 
-	diagSigmas << sigmaV, 0,
-		      0, sigmaOmega;
+	diagSigmas << std::pow(sigmaV,2), 0,
+		      0, std::pow(sigmaOmega,2);
 
        Eigen::MatrixXd processNoiseMatrix (getDimension(),getDimension());
  
