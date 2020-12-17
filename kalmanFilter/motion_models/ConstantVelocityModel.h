@@ -15,47 +15,45 @@
 
 namespace stateEstimation
 {
+  class ConstantVelocityModel: public  MotionModelInterface
+  {
+    public:
+    
+      ConstantVelocityModel(const double& dtime, const double& sig, unsigned int& dimension);
 
-class ConstantVelocityModel: public  MotionModelInterface
-{
-
-  public:
-
-    ConstantVelocityModel(const double& dtime, const double& sig, unsigned int& dimension);
-
-    ~ConstantVelocityModel(){ };
-    /**
-    * @brief Returns the state dimension
-    *
-    * @return unsigned int
-    */
-    unsigned int getDimension() const ;
+      ~ConstantVelocityModel(){ };
+      /**
+      * @brief Returns the state dimension
+      *
+      * @return unsigned int
+      */
+      unsigned int getDimension() const ;
 	   /**
-    * @brief Predicts the current state to the next timestamp
-    *
-    * @param currState : Current state.
-    * @return Eigen::VectorXd
-    */ 
-    Eigen::VectorXd predictState( const Eigen::VectorXd& currState);
-    /**
-    * @brief Get the state transition matrix
-    *
-    * @param currState : Current state.
-    * @return Eigen::MatrixXd
-    */
-    Eigen::MatrixXd getStateTransitionMatrix(const Eigen::VectorXd& currState) ;
-    /**
-    * @brief Get the state noise covariance matrix
-    *
-    * @return Eigen::MatrixXd
-    */
-    Eigen::MatrixXd  getProcessNoiseCovariance() ;
+      * @brief Predicts the current state to the next timestamp
+      *
+      * @param currState : Current state.
+      * @return Eigen::VectorXd
+      */ 
+      Eigen::VectorXd predictState( const Eigen::VectorXd& currState);
+      /**
+      * @brief Get the state transition matrix
+      *
+      * @param currState : Current state.
+      * @return Eigen::MatrixXd
+      */
+      Eigen::MatrixXd getStateTransitionMatrix(const Eigen::VectorXd& currState) ;
+      /**
+      * @brief Get the state noise covariance matrix
+      *
+      * @return Eigen::MatrixXd
+      */
+      Eigen::MatrixXd  getProcessNoiseCovariance() ;
 
-  private:
+    private:
   
-    double dt;    // sampling timestamp
-    double sigma; // standard deviation for the motion-model noise
-    unsigned int DIM; // Dimension of the state space
+      double dt;    // sampling timestamp
+      double sigma; // standard deviation for the motion-model noise
+      unsigned int DIM; // Dimension of the state space
 
 };
 
