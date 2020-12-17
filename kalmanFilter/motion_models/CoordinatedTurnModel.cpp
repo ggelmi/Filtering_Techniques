@@ -13,7 +13,6 @@
 
 namespace stateEstimation
 {
-
    CoordinatedTurnModel::CoordinatedTurnModel(const double& dtime,const double& sigV,const double& sigOmega, unsigned int& dimension)
       { 
          dt = dtime;
