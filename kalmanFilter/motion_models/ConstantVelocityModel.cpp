@@ -16,12 +16,12 @@ namespace stateEstimation
 
 ConstantVelocityModel::ConstantVelocityModel(const double& dtime,const double& sig, unsigned int& dimension)
    { 
-	   dt = dtime;
+      dt = dtime;
 	   sigma = sig;
 	   DIM = dimension;
    }
  
-unsigned int ConstantVelocityModel:: getDimension() const
+ unsigned int ConstantVelocityModel:: getDimension() const
    {
       return DIM;
    }
@@ -36,14 +36,14 @@ Eigen::VectorXd ConstantVelocityModel:: predictState( const Eigen::VectorXd& cur
 Eigen::MatrixXd ConstantVelocityModel:: getStateTransitionMatrix(const Eigen::VectorXd& currState) 
    {
 	
-	   Eigen::MatrixXd stateTransitionMatrix (getDimension(),getDimension());
+      Eigen::MatrixXd stateTransitionMatrix (getDimension(),getDimension());
 
-	   stateTransitionMatrix << 1,0,dt,0,
-       		                   0,1,0,dt,
-                               0,0,1,0,
-			                      0,0,0,0;
+      stateTransitionMatrix << 1,0,dt,0,
+       		                  0,1,0,dt,
+                              0,0,1,0,
+			                     0,0,0,0;
 
-       return stateTransitionMatrix;	                  
+      return stateTransitionMatrix;	                  
    }
 
 Eigen::MatrixXd ConstantVelocityModel::  getProcessNoiseCovariance() 
