@@ -64,7 +64,7 @@ namespace stateEstimation
                1, 0,
                0, 0,
                0, 1;
-	      Eigen::MatrixXd diagSigmas(2,2);
+         Eigen::MatrixXd diagSigmas(2,2);
          diagSigmas << std::pow(sigmaV,2), 0,
                         0, std::pow(sigmaOmega,2);
          Eigen::MatrixXd processNoiseMatrix (getDimension(),getDimension());
