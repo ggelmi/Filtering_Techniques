@@ -28,7 +28,7 @@ namespace stateEstimation
       * @return unsigned int
       */
       unsigned int getDimension() const ;
-	   /**
+	    /**
       * @brief Predicts the current state to the next timestamp
       *
       * @param currState : Current state.
@@ -51,11 +51,11 @@ namespace stateEstimation
 
     private:
   
-      double dt;    // sampling timestamp
-      double sigma; // standard deviation for the motion-model noise
-      unsigned int DIM; // Dimension of the state space
+      double dt;         // sampling timestamp
+      double sigma;      // standard deviation for the motion-model noise
+      unsigned int DIM;  // Dimension of the state space
 
-};
+  };
 
 }
 #endif
