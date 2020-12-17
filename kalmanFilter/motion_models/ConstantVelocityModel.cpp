@@ -39,9 +39,9 @@ Eigen::MatrixXd ConstantVelocityModel:: getStateTransitionMatrix(const Eigen::Ve
       Eigen::MatrixXd stateTransitionMatrix (getDimension(),getDimension());
 
       stateTransitionMatrix << 1,0,dt,0,
-       		                  0,1,0,dt,
+                              0,1,0,dt,
                               0,0,1,0,
-			                     0,0,0,0;
+                              0,0,0,0;
 
       return stateTransitionMatrix;	                  
    }
