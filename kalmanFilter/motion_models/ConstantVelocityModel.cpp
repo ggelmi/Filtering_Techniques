@@ -16,9 +16,9 @@ namespace stateEstimation
 
 ConstantVelocityModel::ConstantVelocityModel(const double& dtime,const double& sig, unsigned int& dimension)
    { 
-      dt = dtime;
-	   sigma = sig;
-	   DIM = dimension;
+      dt = dtime
+      sigma = sig;
+      DIM = dimension;
    }
  
  unsigned int ConstantVelocityModel:: getDimension() const
