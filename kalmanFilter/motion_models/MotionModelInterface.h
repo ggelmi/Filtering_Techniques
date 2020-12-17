@@ -51,5 +51,6 @@ class MotionModelInterface {
    virtual Eigen::MatrixXd getProcessNoiseCovariance()=0;
 
 };
+
 }
 #endif
