@@ -3,6 +3,8 @@
 #include"ConstantVelocityModel.h"
 #include"CoordinatedTurnModel.h"
 
+using namespace stateEstimation;
+
 int main()
 {
 /**
