@@ -40,7 +40,7 @@ namespace stateEstimation
 
    Eigen::MatrixXd CoordinatedTurnModel:: getStateTransitionMatrix(const Eigen::VectorXd& currState)
       {
-	      Eigen::MatrixXd stateTransitionMatrix (getDimension(),getDimension());
+         Eigen::MatrixXd stateTransitionMatrix (getDimension(),getDimension());
          return stateTransitionMatrix;
       }
       
