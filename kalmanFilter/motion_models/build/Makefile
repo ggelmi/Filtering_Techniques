@@ -150,6 +150,33 @@ ConstantVelocityModel.cpp.s:
 	$(MAKE) -f CMakeFiles/test_motion_model.dir/build.make CMakeFiles/test_motion_model.dir/ConstantVelocityModel.cpp.s
 .PHONY : ConstantVelocityModel.cpp.s
 
+CoordinatedTurnModel.o: CoordinatedTurnModel.cpp.o
+
+.PHONY : CoordinatedTurnModel.o
+
+# target to build an object file
+CoordinatedTurnModel.cpp.o:
+	$(MAKE) -f CMakeFiles/test_motion_model.dir/build.make CMakeFiles/test_motion_model.dir/CoordinatedTurnModel.cpp.o
+.PHONY : CoordinatedTurnModel.cpp.o
+
+CoordinatedTurnModel.i: CoordinatedTurnModel.cpp.i
+
+.PHONY : CoordinatedTurnModel.i
+
+# target to preprocess a source file
+CoordinatedTurnModel.cpp.i:
+	$(MAKE) -f CMakeFiles/test_motion_model.dir/build.make CMakeFiles/test_motion_model.dir/CoordinatedTurnModel.cpp.i
+.PHONY : CoordinatedTurnModel.cpp.i
+
+CoordinatedTurnModel.s: CoordinatedTurnModel.cpp.s
+
+.PHONY : CoordinatedTurnModel.s
+
+# target to generate assembly for a file
+CoordinatedTurnModel.cpp.s:
+	$(MAKE) -f CMakeFiles/test_motion_model.dir/build.make CMakeFiles/test_motion_model.dir/CoordinatedTurnModel.cpp.s
+.PHONY : CoordinatedTurnModel.cpp.s
+
 test_main.o: test_main.cpp.o
 
 .PHONY : test_main.o
@@ -189,6 +216,9 @@ help:
 	@echo "... ConstantVelocityModel.o"
 	@echo "... ConstantVelocityModel.i"
 	@echo "... ConstantVelocityModel.s"
+	@echo "... CoordinatedTurnModel.o"
+	@echo "... CoordinatedTurnModel.i"
+	@echo "... CoordinatedTurnModel.s"
 	@echo "... test_main.o"
 	@echo "... test_main.i"
 	@echo "... test_main.s"

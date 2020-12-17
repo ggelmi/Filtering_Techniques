@@ -59,7 +59,7 @@ Eigen::MatrixXd ConstantVelocityModel::  getProcessNoiseCovariance()
 
       return processNoiseMatrix;
    }
-   
+
 }
 
 

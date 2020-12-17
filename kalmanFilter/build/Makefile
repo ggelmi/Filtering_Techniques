@@ -111,31 +111,31 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named eigen-demo
+# Target rules for targets named filter_exe
 
 # Build rule for target.
-eigen-demo: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 eigen-demo
-.PHONY : eigen-demo
+filter_exe: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 filter_exe
+.PHONY : filter_exe
 
 # fast build rule for target.
-eigen-demo/fast:
-	$(MAKE) -f CMakeFiles/eigen-demo.dir/build.make CMakeFiles/eigen-demo.dir/build
-.PHONY : eigen-demo/fast
+filter_exe/fast:
+	$(MAKE) -f CMakeFiles/filter_exe.dir/build.make CMakeFiles/filter_exe.dir/build
+.PHONY : filter_exe/fast
 
 # target to build an object file
 kalmanFilter.o:
-	$(MAKE) -f CMakeFiles/eigen-demo.dir/build.make CMakeFiles/eigen-demo.dir/kalmanFilter.o
+	$(MAKE) -f CMakeFiles/filter_exe.dir/build.make CMakeFiles/filter_exe.dir/kalmanFilter.o
 .PHONY : kalmanFilter.o
 
 # target to preprocess a source file
 kalmanFilter.i:
-	$(MAKE) -f CMakeFiles/eigen-demo.dir/build.make CMakeFiles/eigen-demo.dir/kalmanFilter.i
+	$(MAKE) -f CMakeFiles/filter_exe.dir/build.make CMakeFiles/filter_exe.dir/kalmanFilter.i
 .PHONY : kalmanFilter.i
 
 # target to generate assembly for a file
 kalmanFilter.s:
-	$(MAKE) -f CMakeFiles/eigen-demo.dir/build.make CMakeFiles/eigen-demo.dir/kalmanFilter.s
+	$(MAKE) -f CMakeFiles/filter_exe.dir/build.make CMakeFiles/filter_exe.dir/kalmanFilter.s
 .PHONY : kalmanFilter.s
 
 # Help Target
@@ -146,7 +146,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... eigen-demo"
+	@echo "... filter_exe"
 	@echo "... kalmanFilter.o"
 	@echo "... kalmanFilter.i"
 	@echo "... kalmanFilter.s"
