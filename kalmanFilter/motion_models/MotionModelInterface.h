@@ -15,42 +15,37 @@
 
 namespace stateEstimation
 {
-
-class MotionModelInterface {
-
-  public:
-   /**
+  class MotionModelInterface 
+  {
+    public:
+    /**
     * @brief Returns the state dimension
     *
     * @return unsigned int
-    */     
-   virtual unsigned int getDimension() const = 0;
+    */
+      virtual unsigned int getDimension() const = 0;
  
-   virtual ~MotionModelInterface()
-   { 
-   }
+      virtual ~MotionModelInterface(){ }
    /**
     * @brief Predicts the current state to the next timestamp
     *
     * @param currState : Current state.
     * @return Eigen::VectorXd
     */ 
-   virtual Eigen::VectorXd predictState( const Eigen::VectorXd& currState ) = 0;
+      virtual Eigen::VectorXd predictState( const Eigen::VectorXd& currState ) = 0;
    /**
     * @brief Get the state transition matrix
     *
     * @param currState : Current state.
     * @return Eigen::MatrixXd
     */ 
-   virtual Eigen::MatrixXd getStateTransitionMatrix(const Eigen::VectorXd& currState)=0;
-  /**
+      virtual Eigen::MatrixXd getStateTransitionMatrix(const Eigen::VectorXd& currState)=0;
+    /**
     * @brief Get the state noise covariance matrix
     *
     * @return Eigen::MatrixXd
     */
-   virtual Eigen::MatrixXd getProcessNoiseCovariance()=0;
-
-};
-
+      virtual Eigen::MatrixXd getProcessNoiseCovariance()=0;
+  };
 }
 #endif
