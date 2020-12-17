@@ -52,7 +52,7 @@ namespace stateEstimation
                            0,1,dt*sin(currState(3)),dt*currState(2)*cos(currState(3)),0,
                            0,0,1,0,0,
                            0,0,0,1,dt,
-	                        0,0,0,0,1;
+                           0,0,0,0,1;
          return jacobianMatrix;
       }
 
@@ -61,9 +61,9 @@ namespace stateEstimation
          Eigen::MatrixXd G(getDimension(),2);
          G << 0, 0,
                0, 0,
-	            1, 0,
-	            0, 0,
-	            0, 1;
+               1, 0,
+               0, 0,
+               0, 1;
 	      Eigen::MatrixXd diagSigmas(2,2);
          diagSigmas << std::pow(sigmaV,2), 0,
                         0, std::pow(sigmaOmega,2);

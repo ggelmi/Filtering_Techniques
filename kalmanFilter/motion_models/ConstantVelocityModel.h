@@ -48,14 +48,10 @@ namespace stateEstimation
       * @return Eigen::MatrixXd
       */
       Eigen::MatrixXd  getProcessNoiseCovariance() ;
-
     private:
-  
       double dt;         // sampling timestamp
       double sigma;      // standard deviation for the motion-model noise
       unsigned int DIM;  // Dimension of the state space
-
   };
-
 }
 #endif

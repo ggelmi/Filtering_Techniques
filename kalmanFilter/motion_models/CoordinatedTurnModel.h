@@ -15,12 +15,9 @@
 
 namespace stateEstimation
 {
-
   class CoordinatedTurnModel: public  MotionModelInterface
   {
-
     public:
-  
       CoordinatedTurnModel(const double& dtime, const double& sigPhi, const double& sigOmega, unsigned int& dimension);
     
       ~CoordinatedTurnModel(){ };
@@ -57,15 +54,11 @@ namespace stateEstimation
       * @return Eigen::MatrixXd
       */
       Eigen::MatrixXd getJacobianMatrix(const Eigen::VectorXd& currState) ;
-    
     private:
-    
       double dt;         // sampling timestamp
       double sigmaV;     // standard deviation for the velocity
       double sigmaOmega; // standard deviation for the angular rate
       unsigned int DIM;  // Dimension of the state space
-
   };
-
 }
 #endif 
