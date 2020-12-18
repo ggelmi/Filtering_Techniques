@@ -7,6 +7,7 @@
 *     Created 12/15/2020
 *
 */
+
 #ifndef BEARING_MEASURUMENT_MODEL_H
 #define BEARING_MEASURUMENT_MODEL_H
 
@@ -42,6 +43,7 @@ namespace stateEstimation
             /**
             * @brief Get the measurement jacobian matrix
             *
+            * @param currState : Current state.
             * @return Eigen::MatrixXd
             */
             Eigen::MatrixXd getJacobianMatrix(const Eigen::VectorXd& currState);
