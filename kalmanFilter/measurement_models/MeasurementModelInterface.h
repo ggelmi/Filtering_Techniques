@@ -16,7 +16,7 @@
 namespace stateEstimation
 {
   class MeasurementModelInterface  
-{
+  {
     public:
     /**
     * @brief Returns the measurement dimension
@@ -25,7 +25,7 @@ namespace stateEstimation
     */
       virtual unsigned int getDimension() const = 0;
     
-      virtual ~MeasurementModelInterface(){ }
+      virtual ~MeasurementModelInterface(){ };
     /**
     * @brief Get the measurement vector
     *
@@ -45,5 +45,6 @@ namespace stateEstimation
     * @return Eigen::MatrixXd
     */
       virtual Eigen::MatrixXd getMeasurementNoiseCovariance()=0;
-};
+  };
+}
 #endif

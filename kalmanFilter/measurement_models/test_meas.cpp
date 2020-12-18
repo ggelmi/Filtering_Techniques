@@ -6,6 +6,7 @@
 #include"DualBearingMeasModel.h"
 #include"RangeBearingMeasModel.h"
 
+using namespace stateEstimation;
 
 int main()
 {
@@ -118,5 +119,5 @@ int main()
 
   std::cout << "The variance is : \n " << rbmmodel.getMeasurementNoiseCovariance() << std::endl;
 
-	
+	return 0;
 }
