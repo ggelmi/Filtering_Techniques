@@ -10,6 +10,7 @@
 
 #include<cmath>
 #include"ConstantVelocityModel.h"
+#include<iostream>
 
 namespace stateEstimation
 {
@@ -20,28 +21,28 @@ namespace stateEstimation
          DIM = dimension;
       }
  
-   unsigned int ConstantVelocityModel:: getDimension() const
+   const unsigned int& ConstantVelocityModel:: getDimension() const
       {
          return DIM;
       }
 
-   Eigen::VectorXd ConstantVelocityModel:: predictState( const Eigen::VectorXd& currState)
+   Eigen::VectorXd ConstantVelocityModel:: predictState( const Eigen::VectorXd& currState) const 
       {  
          Eigen::VectorXd predicted_state =  getStateTransitionMatrix(currState)*currState; 
          return predicted_state; 
       }
 
-   Eigen::MatrixXd ConstantVelocityModel:: getStateTransitionMatrix(const Eigen::VectorXd& currState) 
+    Eigen::MatrixXd ConstantVelocityModel:: getStateTransitionMatrix(const Eigen::VectorXd& currState) const 
       {
          Eigen::MatrixXd stateTransitionMatrix (getDimension(),getDimension());
          stateTransitionMatrix << 1,0,dt,0,
-                                 0,1,0,dt,
-                                 0,0,1,0,
-                                 0,0,0,0;
+                                  0,1,0,dt,
+                                  0,0,1,0,
+                                  0,0,0,0;
          return stateTransitionMatrix;	                  
       }
 
-   Eigen::MatrixXd ConstantVelocityModel::  getProcessNoiseCovariance() 
+   Eigen::MatrixXd ConstantVelocityModel::  getProcessNoiseCovariance() const
       {
          Eigen::MatrixXd processNoiseMatrix(getDimension(),getDimension());
          processNoiseMatrix << std::pow(dt, 4)/4,  0, std::pow(dt, 3)/2,0,

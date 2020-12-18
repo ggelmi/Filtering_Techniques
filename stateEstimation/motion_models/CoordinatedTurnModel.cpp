@@ -21,12 +21,12 @@ namespace stateEstimation
          DIM = dimension;
       }
 
-   unsigned int CoordinatedTurnModel:: getDimension() const
+   const unsigned int& CoordinatedTurnModel:: getDimension() const
       {
          return DIM;
       }
 
-   Eigen::VectorXd CoordinatedTurnModel:: predictState( const Eigen::VectorXd& currState)
+   Eigen::VectorXd CoordinatedTurnModel:: predictState( const Eigen::VectorXd& currState) const
       {
          Eigen::VectorXd x(getDimension());
          x <<  dt*currState(2)*cos(currState(3)),
@@ -38,13 +38,13 @@ namespace stateEstimation
          return predicted_state;
       }
 
-   Eigen::MatrixXd CoordinatedTurnModel:: getStateTransitionMatrix(const Eigen::VectorXd& currState)
+   Eigen::MatrixXd CoordinatedTurnModel:: getStateTransitionMatrix(const Eigen::VectorXd& currState) const
       {
          Eigen::MatrixXd stateTransitionMatrix (getDimension(),getDimension());
          return stateTransitionMatrix;
       }
       
-   Eigen::MatrixXd CoordinatedTurnModel:: getJacobianMatrix(const Eigen::VectorXd& currState)
+   Eigen::MatrixXd CoordinatedTurnModel:: getJacobianMatrix(const Eigen::VectorXd& currState) const
       {
          Eigen::MatrixXd jacobianMatrix (getDimension(),getDimension());
          jacobianMatrix << 1,0,dt*cos(currState(3)),-dt*currState(2)*sin(currState(3)),0,
@@ -55,7 +55,7 @@ namespace stateEstimation
          return jacobianMatrix;
       }
 
-   Eigen::MatrixXd CoordinatedTurnModel:: getProcessNoiseCovariance() 
+   Eigen::MatrixXd CoordinatedTurnModel:: getProcessNoiseCovariance() const
       {
          Eigen::MatrixXd G(getDimension(),2);
          G << 0, 0,

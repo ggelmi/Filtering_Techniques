@@ -27,27 +27,27 @@ namespace stateEstimation
       *
       * @return unsigned int
       */
-      unsigned int getDimension() const ;
+      const unsigned int& getDimension() const ;
 	    /**
       * @brief Predicts the current state to the next timestamp
       *
       * @param currState : Current state.
       * @return Eigen::VectorXd
       */ 
-      Eigen::VectorXd predictState( const Eigen::VectorXd& currState);
+      Eigen::VectorXd predictState( const Eigen::VectorXd& currState) const ;
       /**
       * @brief Get the state transition matrix
       *
       * @param currState : Current state.
       * @return Eigen::MatrixXd
       */
-      Eigen::MatrixXd getStateTransitionMatrix(const Eigen::VectorXd& currState) ;
+      Eigen::MatrixXd getStateTransitionMatrix(const Eigen::VectorXd& currState) const;
       /**
       * @brief Get the state noise covariance matrix
       *
       * @return Eigen::MatrixXd
       */
-      Eigen::MatrixXd  getProcessNoiseCovariance() ;
+      Eigen::MatrixXd  getProcessNoiseCovariance() const;
     private:
       double dt;         // sampling timestamp
       double sigma;      // standard deviation for the motion-model noise
