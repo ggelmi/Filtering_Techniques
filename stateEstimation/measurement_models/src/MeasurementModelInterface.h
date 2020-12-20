@@ -11,7 +11,7 @@
 #ifndef MEASUREMENT_MODEL_INTERFACE
 #define MEASUREMENT_MODEL_INTERFACE
 
-#include<Eigen/Core>
+#include<Eigen/Dense>
 
 namespace stateEstimation
 {

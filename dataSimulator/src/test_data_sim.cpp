@@ -2,10 +2,11 @@
 #include<iostream>
 #include"Mvn.h"
 #include"GenLinearStateSequences.h"
-#include"/home/guuto/octave/Filtering_Techniques/stateEstimation/motion_models/MotionModelInterface.h"
-#include"/home/guuto/octave/Filtering_Techniques/stateEstimation/motion_models/ConstantVelocityModel.h"
+#include"MotionModelInterface.h"
+#include"ConstantVelocityModel.h"
 
 using namespace dataSimulator;
+using namespace mvnrnd;
 using namespace stateEstimation;
 
 int main()
@@ -21,22 +22,30 @@ int main()
     Eigen::VectorXd mean(4);
     mean << 0, 0,0,0;
 
-    Mvn mvn(mean, sigma,100);
+    Mvn mvn1(mean, sigma,100);
     
     Eigen::VectorXd test(4);
     test << 0, 0,0,0;
     
-    std::cout << "pdf : \n" << mvn.pdf(test) << std::endl;
+    std::cout << "pdf : \n" << mvn1.pdf(test) << std::endl;
     
     test << -0.6, -0.6,-0.6,-0.6;
 
-    std::cout << "pdf : \n" << mvn.pdf(test) << std::endl;
+    std::cout << "pdf : \n" << mvn1.pdf(test) << std::endl;
 
-    std::cout << "sample from dist : \n" << mvn.sample() << std::endl;
+    std::cout << "sample from dist : \n" << mvn1.sample() << std::endl;
     // creating the model
-    ConstantVelocityMotionModel cv_model(1,0.5,4);
+    const double delta = 1;
+    const double sig = 0.5;
+    unsigned int dim = 4;
+    MotionModelInterface* cv_model = new ConstantVelocityModel(delta,sig,dim);
+    
+    unsigned int num = 10;
+    GenLinearStateSequences genTrueState(mean,sigma,cv_model,num);
 
-    //GenLinearStateSequences genTrueState(mean,sigma,)
+    std::vector<Eigen::VectorXd> sensor_data = genTrueState.generateStateSequence();
+
+    //std::cout << "The number of generated states are: " << sensor_data.size() << std::endl;
     /**
     // Define the covariance matrix and the mean
 

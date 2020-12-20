@@ -2,7 +2,7 @@
 #include<cmath>
 #include"Mvn.h"
 
-namespace dataSimulator
+namespace mvnrnd
 {
     
     Mvn::Mvn(const Eigen::VectorXd& mu,const Eigen::MatrixXd& s, const unsigned int& size)

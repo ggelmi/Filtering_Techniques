@@ -5,7 +5,7 @@
 #ifndef MVN
 #define MVN
 
-namespace dataSimulator
+namespace mvnrnd
 {
     class Mvn
     {

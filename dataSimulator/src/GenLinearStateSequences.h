@@ -1,6 +1,6 @@
 #include<Eigen/Dense>
-#include"/home/guuto/octave/Filtering_Techniques/stateEstimation/motion_models/MotionModelInterface.h"
-#include"/home/guuto/octave/Filtering_Techniques/stateEstimation/motion_models/ConstantVelocityModel.h"
+#include"MotionModelInterface.h"
+#include"ConstantVelocityModel.h"
 
 #include"Mvn.h"
 
@@ -9,7 +9,6 @@
 
 using namespace stateEstimation;
 
-
 namespace dataSimulator
 {
 
@@ -17,9 +16,9 @@ namespace dataSimulator
     {
         public:
             GenLinearStateSequences(const Eigen::VectorXd& priorM,const Eigen::MatrixXd& priorC,
-                                    const MotionModelInterface* motionMdl,const unsigned int& N);
+                                    MotionModelInterface*& motionMdl,const unsigned int& N);
 
-            Eigen::MatrixXd generateStateSequence();
+            std::vector<Eigen::VectorXd> generateStateSequence();
 
             //void loadToFile();
 
