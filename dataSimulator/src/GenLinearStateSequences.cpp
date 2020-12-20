@@ -1,6 +1,7 @@
 
 #include<vector>
 #include"GenLinearStateSequences.h"
+#include<iostream>
 
 using namespace mvnrnd;
 
@@ -18,21 +19,25 @@ namespace dataSimulator
     std::vector<Eigen::VectorXd> GenLinearStateSequences:: generateStateSequence()
         {
             auto n = priorMean.rows();
-            std::vector<Eigen::VectorXd> stateSequences;
+            std::cout << "prior mean is :\n" << priorMean << std::endl;
+            std::vector<Eigen::VectorXd> stateSequences(Num + 1);
             // initial sample
             Mvn mvn(priorMean, priorCovar,200);
             Eigen::VectorXd sampleVec= mvn.sample();
-            stateSequences.push_back(sampleVec);
+            std::cout << "Sample from prior mean dist is :\n" << sampleVec << std::endl;
+            stateSequences[0] = sampleVec;
 
             // Zero mean random noise distribution
             Eigen::VectorXd mean(n);
             mean.setZero();
-            Mvn mvnZeroMean(mean,motionModel->getProcessNoiseCovariance(), Num);
+            Mvn mvnZeroMean(mean,motionModel->getProcessNoiseCovariance(), 200);
 
-            for (unsigned i = 1; i < Num; i++)
+            std::cout << "Size of stateSequences: " << stateSequences.size() << std::endl;
+            for (unsigned i = 0; i < Num; i++)
             {
-                stateSequences[i] = motionModel->predictState(stateSequences[i-1]) 
+                stateSequences[i+1] = motionModel->predictState(stateSequences[i]) 
                                                                             + mvnZeroMean.sample();
+                
             }
 
             return stateSequences;

@@ -20,8 +20,6 @@ namespace dataSimulator
 
             std::vector<Eigen::VectorXd> generateStateSequence();
 
-            //void loadToFile();
-
         private:
             MotionModelInterface* motionModel;
             Eigen::VectorXd priorMean;

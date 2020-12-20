@@ -8,6 +8,7 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/../stateEstimation se_build)
 add_library(data_sim_lib 
             ${CMAKE_CURRENT_LIST_DIR}/utilities/Mvn.cpp
             ${CMAKE_CURRENT_LIST_DIR}/src/GenLinearStateSequences.cpp
+            ${CMAKE_CURRENT_LIST_DIR}/src/GenLinearMeasurementSequences.cpp
             )
 
 target_include_directories ( data_sim_lib PUBLIC 
