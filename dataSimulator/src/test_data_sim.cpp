@@ -5,10 +5,7 @@
 #include"Mvn.h"
 #include"GenLinearStateSequences.h"
 #include"GenLinearMeasurementSequences.h"
-//#include"MotionModelInterface.h"
-//#include"ConstantVelocityModel.h"
-//#include"MeasurementModelInterface.h"
-//#include"CvMeasurementModel.h"
+
 
 using namespace dataSimulator;
 using namespace mvnrnd;
@@ -39,7 +36,7 @@ int main()
     std::cout << "pdf : \n" << mvn1.pdf(test) << std::endl;
 
     std::cout << "sample from dist : \n" << mvn1.sample() << std::endl;
-    // creating the model
+    // creating the motion model
     const double delta = 1;
     const double sig = 0.5;
     unsigned int dim = 4;
@@ -53,8 +50,7 @@ int main()
     std::ofstream output("../../data/groundTruth.mat");
     std::ofstream output_meas("../../data/measurementData.mat");
 
-    
-    
+    // creating measurement model
     const double sigma_meas = 0.2;
     unsigned int sensor_dim = 2;
 
