@@ -29,13 +29,13 @@ namespace stateEstimation
                                     const Eigen::VectorXd& measurement) const
         {
             Eigen::VectorXd innovation = computeInnovation(state,measurement);
-            std::cout << "Innovation :\n" <<innovation << std::endl;
+            //std::cout << "Innovation :\n" <<innovation << std::endl;
 
             Eigen::MatrixXd innovCovar = computeInnovCovariance(cov);
-            std::cout << "Innovation Cov: \n"<<innovCovar << std::endl;
+            //std::cout << "Innovation Cov: \n"<<innovCovar << std::endl;
 
             Eigen::MatrixXd K = computeKalmanGain(cov,innovCovar);
-            std::cout << "kalman gain \n"<<K << std::endl;
+            //std::cout << "kalman gain \n"<<K << std::endl;
 
             state = state + K*innovation;
 
