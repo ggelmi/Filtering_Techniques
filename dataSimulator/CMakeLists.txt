@@ -5,11 +5,17 @@ find_package(Eigen3 REQUIRED)
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/../stateEstimation se_build)
 
-add_library(data_sim_lib 
-            ${CMAKE_CURRENT_LIST_DIR}/utilities/Mvn.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/src/GenLinearStateSequences.cpp
-            ${CMAKE_CURRENT_LIST_DIR}/src/GenLinearMeasurementSequences.cpp
-            )
+file(GLOB_RECURSE DASIM_SRC_FILES 
+     "${CMAKE_CURRENT_LIST_DIR}/utilities/*.cpp"
+     "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp"
+     )
+
+file(GLOB_RECURSE DASIM_INC_FILES 
+     "${CMAKE_CURRENT_LIST_DIR}/utilities/*.cpp"
+     "${CMAKE_CURRENT_LIST_DIR}/src/*.cpp"
+     )   
+
+add_library(data_sim_lib ${DASIM_SRC_FILES} ${DASIM_INC_FILES})
 
 target_include_directories ( data_sim_lib PUBLIC 
                              ${CMAKE_CURRENT_LIST_DIR}/src/
