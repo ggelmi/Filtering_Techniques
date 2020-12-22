@@ -1,12 +1,12 @@
 % Visualization script
 % This octave script displays true, measurement and state_estimate data
 
-meas = load ("data/measurementData.mat");
+var = load ("matlab_data/measData.mat");
+meas = var.measurementData
+var2 = load("matlab_data/grdtruth.mat");
+gtruth = var2.groundTruth
 
-gtruth = load("data/groundTruth.mat");
-
-
-%state_estimates = load("state_estimates.mat")
+state_estimates = load("matlab_data/stateEstimates.mat")
 
 
 % Plotting the results of the x dimension
@@ -17,8 +17,10 @@ hold on
 % Plotting the measurements
 plot(meas(:,1));
 
-%plot(state_estimates(:,1));
+hold on
 
-%legend({' True Data','Measurement Data', 'state_estimates'})
+plot(state_estimates(:,1));
+
+legend({' True Data','Measurement Data', 'State Estimates'})
 
 

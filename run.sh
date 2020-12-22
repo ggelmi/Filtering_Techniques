@@ -1,10 +1,12 @@
 #!/bin/bash
 
-pushd /home/guuto/octave/Filtering_Techniques/dataSimulator/build
+octave simulate 
+
+pushd /home/guuto/octave/Filtering_Techniques/mainApp/build
 
 cmake ..
 make
-./data_sim_exe
+./almis_app_exe
 
 popd
 

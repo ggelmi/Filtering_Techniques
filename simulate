@@ -7,18 +7,20 @@ pkg load statistics
 %Defining the size of the data points
 N = 20
 
+T = 1;
 
 % Define prior state and Covariance
 
-x_0     = [0;0];
+x_0     = [0;0;0;0];
 n = length(x_0);
 P_0 = diag(ones(n,1));
 
 %Define process model
-A  = [1 1; 0 1]
+A  = [1 0 T 0; 0 1 0 T; 0 0 1 0; 0 0 0 1]
 
 %Process covariance
-Q  = 2*diag(ones(n,1))
+sigma = 2;
+Q = sigma^2*[ T^4/4 0 T^3/2 0; 0 T^4/4 0 T^3/2; T^3/2 0 T^2 0; 0 T^3/2 0 T^2]
 
 v = rand ("state");
 
@@ -47,13 +49,13 @@ hold on
 % Generating the simulated measurements
 
 % Defining Measurement Model
-H = [1 0; 0 1];
+H = [1 0 0 0; 0 1 0 0];
 
 % dimensions fo the measurements
 m = size(H,1);
 
 % Measurment covariance
-R = 200*diag(ones(m,1));
+R = 20*diag(ones(m,1));
 
 %--------------%This function generates the simulated measurements
 
@@ -77,19 +79,20 @@ Y = genLinearMeasurementSequence(X, H, R)
 plot(Y(1,:));
 legend({' True Data','Measurement Data'})
 
+
 measurementData = Y';
 
-save data.mat measurementData
+save matlab_data/measData.mat measurementData
 
-groundTruth = X'
+groundTruth = X';
 
-save grdtruth.mat groundTruth  
+save matlab_data/grdtruth.mat groundTruth  
 
-var = load ("data.mat")
+var = load ("matlab_data/measData.mat");
 
 meas = var.measurementData
 
-var2 = load("grdtruth.mat")
+var2 = load("matlab_data/grdtruth.mat");
 
 gtruth = var2.groundTruth
 
