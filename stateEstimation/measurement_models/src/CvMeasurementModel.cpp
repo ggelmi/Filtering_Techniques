@@ -46,4 +46,9 @@ namespace stateEstimation
       measCovariance =  std::pow(sigma,2)*measCovariance;
       return measCovariance;
     }
+  Eigen::MatrixXd CvMeasurementModel:: getJacobianMatrix(const Eigen::VectorXd& currState) const
+    {
+      Eigen::MatrixXd jacobian(getDimension(),getDimension());
+      return jacobian;
+    }
 }

@@ -46,6 +46,13 @@ namespace stateEstimation
     * @return Eigen::MatrixXd
     */
       virtual Eigen::MatrixXd getProcessNoiseCovariance() const =0;
+    /**
+    * @brief Get the state jacobian matrix
+    *
+    * @param currState : Current state.
+    * @return Eigen::MatrixXd
+    */
+      virtual Eigen::MatrixXd getJacobianMatrix(const Eigen::VectorXd& currState) const =0;
   };
 }
 #endif

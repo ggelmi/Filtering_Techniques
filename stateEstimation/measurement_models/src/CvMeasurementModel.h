@@ -46,6 +46,13 @@ namespace stateEstimation
             * @return Eigen::MatrixXd
             */
             Eigen::MatrixXd getMeasurementNoiseCovariance();
+            /**
+            * @brief Get the measurement jacobian matrix
+            *
+            * @param currState : Current state.
+            * @return Eigen::MatrixXd
+            */
+            Eigen::MatrixXd getJacobianMatrix(const Eigen::VectorXd& currState) const;
         private:
             double sigma;       // standard deviation for the sensor-model noise
             unsigned int DIM;   // Dimension of the measurement space 

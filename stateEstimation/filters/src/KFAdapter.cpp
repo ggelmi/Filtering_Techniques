@@ -29,39 +29,28 @@ namespace stateEstimation
                                     const Eigen::VectorXd& measurement) const
         {
             Eigen::VectorXd innovation = computeInnovation(state,measurement);
-            //std::cout << "Innovation :\n" <<innovation << std::endl;
-
-            Eigen::MatrixXd innovCovar = computeInnovCovariance(cov);
-            //std::cout << "Innovation Cov: \n"<<innovCovar << std::endl;
-
-            Eigen::MatrixXd K = computeKalmanGain(cov,innovCovar);
-            //std::cout << "kalman gain \n"<<K << std::endl;
-
+            Eigen::MatrixXd innovCovar = computeInnovCovariance(state,cov);
+            Eigen::MatrixXd K = computeKalmanGain(state,cov,innovCovar);
             state = state + K*innovation;
-
             cov = cov - K*innovCovar*K.transpose();
         }
     Eigen::VectorXd KFAdapter:: computeInnovation(const Eigen::VectorXd& predState,
                                                     const Eigen::VectorXd& measVector) const
         {
             Eigen::VectorXd innovation = measVector - measModel->getObservationMatrix()*predState;
-
             return innovation;
         }
     
-    Eigen::MatrixXd KFAdapter:: computeInnovCovariance(const Eigen::MatrixXd& predCov) const
+    Eigen::MatrixXd KFAdapter:: computeInnovCovariance(const Eigen::VectorXd& predState,const Eigen::MatrixXd& predCov) const
         {
             Eigen::MatrixXd innovationCovar = (measModel->getObservationMatrix()*predCov*measModel->getObservationMatrix().transpose()) 
                                                                                             + measModel->getMeasurementNoiseCovariance();
-        
             return innovationCovar;
         }
     
-    Eigen::MatrixXd KFAdapter:: computeKalmanGain(const Eigen::MatrixXd& predCov, const Eigen::MatrixXd& innovCovariance) const
+    Eigen::MatrixXd KFAdapter:: computeKalmanGain(const Eigen::VectorXd& predState,const Eigen::MatrixXd& predCov, const Eigen::MatrixXd& innovCovariance) const
         {
             Eigen::MatrixXd kalmanGain = predCov*measModel->getObservationMatrix().transpose()*innovCovariance.inverse();
-
             return kalmanGain;
         }
-    
 }

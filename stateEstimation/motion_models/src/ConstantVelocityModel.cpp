@@ -52,6 +52,12 @@ namespace stateEstimation
          processNoiseMatrix = std::pow(sigma,2) * processNoiseMatrix;
          return processNoiseMatrix;
       }
+   
+   Eigen::MatrixXd ConstantVelocityModel:: getJacobianMatrix(const Eigen::VectorXd& currState) const
+      {
+         Eigen::MatrixXd jacobian(getDimension(),getDimension());
+         return jacobian;
+      }
 }
 
 

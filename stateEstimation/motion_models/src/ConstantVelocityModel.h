@@ -48,6 +48,13 @@ namespace stateEstimation
       * @return Eigen::MatrixXd
       */
       Eigen::MatrixXd  getProcessNoiseCovariance() const;
+      /**
+      * @brief Get the state jacobian matrix
+      *
+      * @param currState : Current state.
+      * @return Eigen::MatrixXd
+      */
+      Eigen::MatrixXd getJacobianMatrix(const Eigen::VectorXd& currState) const;
     private:
       double dt;         // sampling timestamp
       double sigma;      // standard deviation for the motion-model noise

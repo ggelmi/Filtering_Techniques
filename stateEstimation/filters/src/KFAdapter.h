@@ -32,11 +32,10 @@ namespace stateEstimation
             
             Eigen::VectorXd computeInnovation(const Eigen::VectorXd& predState,const Eigen::VectorXd& measVector) const;
             
-            Eigen::MatrixXd computeInnovCovariance(const Eigen::MatrixXd& predCov) const;
+            Eigen::MatrixXd computeInnovCovariance(const Eigen::VectorXd& predState,const Eigen::MatrixXd& predCov) const;
             
-            Eigen::MatrixXd computeKalmanGain(const Eigen::MatrixXd& predCov, const Eigen::MatrixXd& innovCovariance) const;
+            Eigen::MatrixXd computeKalmanGain(const Eigen::VectorXd& predState,const Eigen::MatrixXd& predCov, const Eigen::MatrixXd& innovCovariance) const;
             
-
             MotionModelInterface* motionModel;
             MeasurementModelInterface* measModel;
     };

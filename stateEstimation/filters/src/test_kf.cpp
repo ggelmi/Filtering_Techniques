@@ -1,10 +1,15 @@
 #include<Eigen/Dense>
 #include<iostream>
+#include<cmath>
 
 #include"KFAdapter.h"
+#include"EKFAdapter.h"
 #include"CvMeasurementModel.h"
+#include"DualBearingMeasModel.h"
+#include"CoordinatedTurnModel.h"
 #include"ConstantVelocityModel.h"
-#include<iostream>
+
+
 
 using namespace stateEstimation;
 
@@ -51,6 +56,53 @@ int main()
 
     std::cout << "mean after update: \n" << mean << std::endl;
     std::cout << "cov mean update: \n"<< sigma << std::endl;
+
+    // Testing the EKF
+    const double Delta = 1;
+    const double sigmaV = 1;
+    const double sigmaOmega = M_PI/180;
+    unsigned int dimen = 5;
+
+    MotionModelInterface* ct_model = new CoordinatedTurnModel(Delta,sigmaV,sigmaOmega,dimen);
+    Eigen::VectorXd sensor1(2);
+    Eigen::VectorXd sensor2(2);
+    
+    const double sigm = 0.5*M_PI/100;
+    sensor1 << -200,100;
+    sensor2 << -200,-100;
+
+    MeasurementModelInterface* dbm_model = new DualBearingMeasModel(sigm,sensor1,sensor2,dimen);
+   
+    Eigen::VectorXd X(5);
+    X << 0, 0,14,0,0;
+    Eigen::MatrixXd P(dimen, dimen);
+    P << 10,0,0,0,0,
+        0,10,0,0,0,
+        0,0,2,0,0,
+        0,0,0,(M_PI/180),0,
+        0,0,0,0,((5*M_PI)/180);
+    P = P*P;
+    std::cout << "P : \n" << P<< std::endl;
+
+
+    FilterInterface* ekf_filter = new EKFAdapter(ct_model,dbm_model);
+
+    std::cout << "X before prediction: \n" << X << std::endl;
+    std::cout << "P before prediction: \n"<< sigma << std::endl;
+    
+    ekf_filter->predictState(X,P);
+
+    std::cout << "X after prediction: \n" << X << std::endl;
+    std::cout << "P after prediction: \n"<< P << std::endl;
+    
+    Eigen::VectorXd measVector1(5);
+    measVector1 << 2,4,15,2,3;
+
+    ekf_filter->updateState(X,P,measVector1);
+
+    std::cout << "X after update: \n" << X << std::endl;
+    std::cout << "P after update: \n"<< P << std::endl;
+    
 
     return 0;
 }
