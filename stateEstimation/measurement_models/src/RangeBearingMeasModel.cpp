@@ -48,7 +48,7 @@ namespace stateEstimation
       return observationMatrix;
     }
   
-  Eigen::MatrixXd RangeBearingMeasModel:: getJacobianMatrix(const Eigen::VectorXd& currState)
+  Eigen::MatrixXd RangeBearingMeasModel:: getJacobianMatrix(const Eigen::VectorXd& currState) const
     {
         Eigen::VectorXd x(2);
         x << currState(0),currState(1);

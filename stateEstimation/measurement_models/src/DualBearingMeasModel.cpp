@@ -8,6 +8,7 @@
 *
 */
 #include<cmath>
+#include<iostream>
 #include"DualBearingMeasModel.h"
 
 namespace stateEstimation
@@ -44,14 +45,15 @@ namespace stateEstimation
       Eigen::VectorXd x(2);
       x << currState(0),currState(1);
       
+      //std::cout << "getDimension " << getDimension() << std::endl;
       Eigen::VectorXd diff1 = x-sensorOnePosition;
       double range1 = std::sqrt((std::pow(diff1(0),2)) + (std::pow(diff1(1),2)));
       Eigen::VectorXd diff2 = x-sensorTwoPosition;
       double range2 = std::sqrt((std::pow(diff2(0),2)) + (std::pow(diff2(1),2)));
       
-      Eigen::MatrixXd jacobianMatrix(getDimension(),4);
-      jacobianMatrix << -((currState(1)-sensorOnePosition(1)) / std::pow(range1,2)), ((currState(0)-sensorOnePosition(0)) / std::pow(range1,2)), 0,0,
-                        -((currState(1)-sensorTwoPosition(1)) / std::pow(range2,2)), ((currState(0)-sensorTwoPosition(0)) / std::pow(range2,2)), 0,0;
+      Eigen::MatrixXd jacobianMatrix(getDimension(),5);
+      jacobianMatrix << -((currState(1)-sensorOnePosition(1)) / std::pow(range1,2)), ((currState(0)-sensorOnePosition(0)) / std::pow(range1,2)), 0,0,0,
+                        -((currState(1)-sensorTwoPosition(1)) / std::pow(range2,2)), ((currState(0)-sensorTwoPosition(0)) / std::pow(range2,2)), 0,0,0;
       return jacobianMatrix;
     }
   

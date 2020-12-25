@@ -6,6 +6,9 @@
 #include"GenLinearStateSequences.h"
 #include"GenLinearMeasurementSequences.h"
 #include"KFAdapter.h"
+#include"DualBearingMeasModel.h"
+#include"CoordinatedTurnModel.h"
+#include"EKFAdapter.h"
 
 using namespace dataSimulator;
 using namespace mvnrnd;
@@ -66,7 +69,8 @@ int main()
     if(useMatlabData)
     {
         std::ifstream input;
-        input.open("/home/guuto/octave/Filtering_Techniques/matlab_data/measData.mat");
+        //input.open("/home/guuto/octave/Filtering_Techniques/matlab_simulator/linear_simulator/matlab_data/measData.mat");
+        input.open("/home/guuto/octave/Filtering_Techniques/matlab_simulator/non_linear_simulator/matlab_data/measData.mat");
         int counter  = 0;
         double x,y;
         std::string line;
@@ -99,8 +103,8 @@ int main()
     //  utilizing the filter to create the state estimates when only having access to
     //  measurements
 
-    std::ofstream output_estimates("/home/guuto/octave/Filtering_Techniques/matlab_data/stateEstimates.mat");
-
+    std::ofstream output_estimates("/home/guuto/octave/Filtering_Techniques/matlab_simulator/non_linear_simulator/matlab_data/stateEstimates.mat");
+    /**
     FilterInterface* kf_filter = new KFAdapter(cv_model,meas_model);
     Eigen::VectorXd measurement;
     for(unsigned int i=0; i<num; i++)
@@ -117,13 +121,56 @@ int main()
         kf_filter->updateState(mean,sigma,measurement);
 
         output_estimates << mean(0) << "      "<< mean(1) << std::endl;
-        //output_estimates << mean(0) << "   "<< mean(1)<< "   "
-                       // << mean(2)<< "   "<< mean(3) << std::endl;
 
     }
+    **/
+    // Running the EKF implementation
 
+    const double Delta = 1;
+    const double sigmaV = 1;
+    const double sigmaOmega = M_PI/180;
+    unsigned int dimen = 5;
 
+    MotionModelInterface* ct_model = new CoordinatedTurnModel(Delta,sigmaV,sigmaOmega,dimen);
+    std::cout << "Q : \n" << ct_model->getProcessNoiseCovariance() << std::endl;
+    Eigen::VectorXd sensor1(2);
+    Eigen::VectorXd sensor2(2);
 
+    const double sigm = 0.5*M_PI/180;
+    sensor1 << -200,100;
+    sensor2 << -200,-100;
 
+    unsigned int sensorDimen = 2;
+    MeasurementModelInterface* dbm_model = new DualBearingMeasModel(sigm,sensor1,sensor2,sensorDimen);
+    std::cout << "R : \n" << dbm_model->getMeasurementNoiseCovariance() << std::endl;
+    Eigen::VectorXd X(5);
+    X << 0, 0,14,0,0;
+    Eigen::MatrixXd P(dimen, dimen);
+    P << 10,0,0,0,0,
+        0,10,0,0,0,
+        0,0,2,0,0,
+        0,0,0,(M_PI/180),0,
+        0,0,0,0,((5*M_PI)/180);
+    P = P*P;
+
+    FilterInterface* ekf_filter = new EKFAdapter(ct_model,dbm_model);
+
+    Eigen::VectorXd measurement;
+    for(unsigned int i=0; i<num; i++)
+    {
+        ekf_filter->predictState(X,P);
+        if(useMatlabData)
+        {
+            measurement = measData[i];
+        }else
+        {
+            measurement = sensor_data[i];
+        }
+        
+        ekf_filter->updateState(X,P,measurement);
+
+        output_estimates << X(0) << "      "<< X(1) << std::endl;
+
+    }
 
 }
