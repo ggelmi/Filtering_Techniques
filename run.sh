@@ -17,7 +17,7 @@ octave --persist kf_visualize
 popd
 END
 pushd matlab_simulator/non_linear_simulator
-octave ekf_simulate.m
+octave simulate.m
 popd
 pushd /home/guuto/octave/Filtering_Techniques/mainApp/build
 
@@ -27,5 +27,5 @@ make
 
 popd
 pushd matlab_simulator/non_linear_simulator
-octave --persist ekf_visualize.m
+octave --persist visualize.m
 popd
