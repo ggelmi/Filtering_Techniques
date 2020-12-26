@@ -9,6 +9,7 @@
 #include"DualBearingMeasModel.h"
 #include"CoordinatedTurnModel.h"
 #include"EKFAdapter.h"
+#include"UKFAdapter.h"
 
 using namespace dataSimulator;
 using namespace mvnrnd;
@@ -153,12 +154,14 @@ int main()
         0,0,0,0,((5*M_PI)/180);
     P = P*P;
 
-    FilterInterface* ekf_filter = new EKFAdapter(ct_model,dbm_model);
+    //FilterInterface* ekf_filter = new EKFAdapter(ct_model,dbm_model);
 
+    FilterInterface* ukf_filter = new UKFAdapter(ct_model,dbm_model);
     Eigen::VectorXd measurement;
+    
     for(unsigned int i=0; i<num; i++)
     {
-        ekf_filter->predictState(X,P);
+        ukf_filter->predictState(X,P);
         if(useMatlabData)
         {
             measurement = measData[i];
@@ -167,10 +170,11 @@ int main()
             measurement = sensor_data[i];
         }
         
-        ekf_filter->updateState(X,P,measurement);
+        ukf_filter->updateState(X,P,measurement);
 
         output_estimates << X(0) << "      "<< X(1) << std::endl;
 
     }
+    
 
 }

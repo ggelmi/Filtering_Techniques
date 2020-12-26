@@ -4,6 +4,7 @@
 
 #include"KFAdapter.h"
 #include"EKFAdapter.h"
+#include"UKFAdapter.h"
 #include"CvMeasurementModel.h"
 #include"DualBearingMeasModel.h"
 #include"CoordinatedTurnModel.h"
@@ -88,25 +89,26 @@ int main()
     //std::cout << "P : \n" << P<< std::endl;
 
 
-    FilterInterface* ekf_filter = new EKFAdapter(ct_model,dbm_model);
+    //FilterInterface* ekf_filter = new EKFAdapter(ct_model,dbm_model);
+    FilterInterface* ukf_filter = new UKFAdapter(ct_model,dbm_model);
 
     std::cout << "X before prediction: \n" << X << std::endl;
     std::cout << "P before prediction: \n"<< P << std::endl;
     
-    ekf_filter->predictState(X,P);
-
+    ukf_filter->predictState(X,P);
+    
     std::cout << "X after prediction: \n" << X << std::endl;
     std::cout << "P after prediction: \n"<< P << std::endl;
     
     Eigen::VectorXd measVector1(2);
-    measVector1 << 0,
-                   0;
-
-    ekf_filter->updateState(X,P,measVector1);
+    measVector1 << -0.4721,
+                   0.4239;
+    
+    ukf_filter->updateState(X,P,measVector1);
 
     std::cout << "X after update: \n" << X << std::endl;
     std::cout << "P after update: \n"<< P << std::endl;
-    
+   
 
     return 0;
 }

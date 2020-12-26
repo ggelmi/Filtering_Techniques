@@ -51,7 +51,6 @@ namespace stateEstimation
     
     Eigen::MatrixXd EKFAdapter:: computeInnovCovariance(const Eigen::VectorXd& predState,const Eigen::MatrixXd& predCov) const
         {
-            //std::cout << "getJacobian :\n" << measModel->getJacobianMatrix(predState) << std::endl;
             Eigen::MatrixXd innovationCovar = (measModel->getJacobianMatrix(predState)*predCov*measModel->getJacobianMatrix(predState).transpose()) 
                                                                                             + measModel->getMeasurementNoiseCovariance();
             return innovationCovar;
