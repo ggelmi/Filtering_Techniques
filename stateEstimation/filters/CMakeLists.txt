@@ -3,6 +3,7 @@ find_package(Eigen3 REQUIRED)
 
 add_executable(test_kf_exe src/test_kf.cpp  src/KFAdapter.cpp 
                                             src/EKFAdapter.cpp
+                                            src/UKFAdapter.cpp
                                             ${CMAKE_CURRENT_LIST_DIR}/../motion_models/src/ConstantVelocityModel.cpp 
                                             ${CMAKE_CURRENT_LIST_DIR}/../motion_models/src/CoordinatedTurnModel.cpp
                                             ${CMAKE_CURRENT_LIST_DIR}/../measurement_models/src/CvMeasurementModel.cpp 
