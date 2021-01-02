@@ -7,6 +7,7 @@
 #include <fstream>
 #include <math.h>
 #include<string>
+#include "Map.h"
 
 namespace utility
 {

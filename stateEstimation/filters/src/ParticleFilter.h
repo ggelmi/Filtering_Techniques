@@ -1,21 +1,56 @@
 #ifndef PARTICLE_FILTER_H
 #define PARTICLE_FILTER_H
 
-#include"utility_functions.h"
+#include<Eigen/Dense>
+#include<vector>
 
-struct Particle
+namespace stateEstimation_pf
 {
-    int id;
-    double x;
-    double y;
-    double theta;
-    double weight;
-};
+    struct Particle
+    {
+        int id;
+        double x;
+        double y;
+        double theta;
+        double weight;
+    };
 
-class ParticleFilter
-{
-    public:
+    class ParticleFilter
+    {
+        public:
+            
+            ParticleFilter(unsigned int numP, unsigned int numI);
 
-        void initialize();
+            ~ParticleFilter(){};
+            // initialize the particle filter given the mean
+            void initialize(Eigen::VectorXd mean, Eigen::MatrixXd covariance);
+
+            bool isInitialized;
+
+            //void runOneStep();
+
+            
+        private:
+            /**
+            void predict();
+
+            void updateWeights();
+
+            void resampleParticles();
+
+            void dataAssociation();
+            **/
+            std::vector<Particle> particles;
+
+            std::vector<double> weights;
+            
+            unsigned int numParticles;
+
+            unsigned int numIterations;
+
         
+    };
+
+
 }
+#endif
