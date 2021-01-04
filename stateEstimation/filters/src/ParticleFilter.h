@@ -3,6 +3,17 @@
 
 #include<Eigen/Dense>
 #include<vector>
+#include"Map.h"
+#include"utility_functions.h"
+
+/**
+namespace utility
+{
+    struct observation;
+}
+**/
+
+
 
 namespace stateEstimation_pf
 {
@@ -23,18 +34,19 @@ namespace stateEstimation_pf
 
             ~ParticleFilter(){};
             // initialize the particle filter given the mean
-            void initialize(Eigen::VectorXd mean, Eigen::MatrixXd covariance);
+            void initialize(const Eigen::VectorXd& mean, const Eigen::MatrixXd& covariance);
 
             bool isInitialized;
 
             //void runOneStep();
+            void predict(const Eigen::VectorXd& controlVec,const Eigen::MatrixXd& covariance,const double& dt);
 
-            
+            void updateWeights(const std::vector<utility::observation>& noisy_meas, const Eigen::MatrixXd& covariance, const Map* map, const double& sensor_range);
         private:
             /**
-            void predict();
+            
 
-            void updateWeights();
+            
 
             void resampleParticles();
 

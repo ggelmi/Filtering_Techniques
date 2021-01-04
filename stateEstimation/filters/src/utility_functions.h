@@ -1,6 +1,7 @@
+/**
 #ifndef UTILITY_FUNCTIONS_H
 #define UTILITY_FUNCTIONS_H
-
+**/
 #include<iostream>
 #include <vector>
 #include <sstream>
@@ -220,4 +221,4 @@ bool load_obs_data(const std::string& filename, std::vector<utility::observation
 	    return true;
     }
 }
-#endif
+//#endif
