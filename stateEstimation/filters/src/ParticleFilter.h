@@ -6,15 +6,6 @@
 #include"Map.h"
 #include"utility_functions.h"
 
-/**
-namespace utility
-{
-    struct observation;
-}
-**/
-
-
-
 namespace stateEstimation_pf
 {
     struct Particle
