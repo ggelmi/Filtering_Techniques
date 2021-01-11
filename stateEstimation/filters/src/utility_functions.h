@@ -34,18 +34,30 @@ struct ground_truth
 
 };
 
-inline double distance(double x1, double y1, double x2, double y2) {
-	return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+inline double compute_pdf(const Eigen::VectorXd& x, const Eigen::VectorXd& mean,const Eigen::MatrixXd& sigma)
+{
+	auto n = x.rows();
+    double sqrt2pi = std::sqrt(2 * M_PI);
+    double quadform  = (x - mean).transpose() * sigma.inverse() * (x - mean);
+    double norm = std::pow(sqrt2pi, - n) *
+                    std::pow(sigma.determinant(), - 0.5);
+    return norm * exp(-0.5 * quadform);
+
 }
 
-inline double * computeError(double gt_x, double gt_y, double gt_theta, double pf_x, double pf_y, double pf_theta) {
-	static double error[3];
-	error[0] = fabs(pf_x - gt_x);
-	error[1] = fabs(pf_y - gt_y);
-	error[2] = fabs(pf_theta - gt_theta);
-	error[2] = fmod(error[2], 2.0 * M_PI);
-	if (error[2] > M_PI) {
-		error[2] = 2.0 * M_PI - error[2];
+inline double distance(Eigen::VectorXd& x1, Eigen::VectorXd& x2) {
+
+	return sqrt((x2(0) - x1(0)) * (x2(0) - x1(0)) + (x2(1) - x1(1)) * (x2(1) - x1(1)));
+}
+
+inline Eigen::VectorXd computeError(const Eigen::VectorXd& state_estimate,const Eigen::VectorXd& ground_truth) {
+	Eigen::VectorXd error(3);
+	error(0) = fabs(state_estimate(0) - ground_truth(0));
+	error(1) = fabs(state_estimate(1) - ground_truth(1));
+	error(2) = fabs(state_estimate(2) - ground_truth(2));
+	error(2) = fmod(error[2], 2.0 * M_PI);
+	if (error(2) > M_PI) {
+		error(2) = 2.0 * M_PI - error[2];
 	}
 	return error;
 }
@@ -54,7 +66,7 @@ inline double * computeError(double gt_x, double gt_y, double gt_theta, double p
  * @param filename Name of file containing map data.
  * @output True if opening and reading file was successful
  */
-bool load_map_data(const std::string& filename, std::vector<Map::landmark>& vec) 
+inline bool load_map_data(const std::string& filename, std::vector<Map::landmark>& vec) 
     {
 
 	    // Get file of map:
@@ -97,7 +109,7 @@ bool load_map_data(const std::string& filename, std::vector<Map::landmark>& vec)
 			
 	    return true;
     }
-bool load_control_data(const std::string& filename, std::vector<utility::control_command>& vec) 
+inline bool load_control_data(const std::string& filename, std::vector<utility::control_command>& vec) 
     {
 
 	    // Get file of map:
@@ -137,7 +149,7 @@ bool load_control_data(const std::string& filename, std::vector<utility::control
 			
 	    return true;
     }
-bool load_gt_data(const std::string& filename, std::vector<utility::ground_truth>& vec) 
+inline bool load_gt_data(const std::string& filename, std::vector<utility::ground_truth>& vec) 
     {
 
 	    // Get file of map:
@@ -180,7 +192,7 @@ bool load_gt_data(const std::string& filename, std::vector<utility::ground_truth
 	    return true;
     }
 
-bool load_obs_data(const std::string& filename, std::vector<utility::observation>& vec) 
+inline bool load_obs_data(const std::string& filename, std::vector<utility::observation>& vec) 
     {
 
 	    // Get file of map:

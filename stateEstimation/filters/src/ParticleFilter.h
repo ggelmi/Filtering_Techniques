@@ -30,7 +30,7 @@ namespace stateEstimation_pf
     {
         public:
             
-            ParticleFilter(unsigned int numP, unsigned int numI);
+            ParticleFilter(unsigned int numP);
 
             ~ParticleFilter(){};
             // initialize the particle filter given the mean
@@ -42,14 +42,9 @@ namespace stateEstimation_pf
             void predict(const Eigen::VectorXd& controlVec,const Eigen::MatrixXd& covariance,const double& dt);
 
             void updateWeights(const std::vector<utility::observation>& noisy_meas, const Eigen::MatrixXd& covariance, const Map* map, const double& sensor_range);
-        private:
-            /**
-            
-
-            
 
             void resampleParticles();
-
+            /**
             void dataAssociation();
             **/
             std::vector<Particle> particles;
@@ -57,8 +52,6 @@ namespace stateEstimation_pf
             std::vector<double> weights;
             
             unsigned int numParticles;
-
-            unsigned int numIterations;
 
         
     };
