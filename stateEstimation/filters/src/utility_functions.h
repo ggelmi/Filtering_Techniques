@@ -55,9 +55,9 @@ inline Eigen::VectorXd computeError(const Eigen::VectorXd& state_estimate,const 
 	error(0) = fabs(state_estimate(0) - ground_truth(0));
 	error(1) = fabs(state_estimate(1) - ground_truth(1));
 	error(2) = fabs(state_estimate(2) - ground_truth(2));
-	error(2) = fmod(error[2], 2.0 * M_PI);
+	error(2) = fmod(error(2), 2.0 * M_PI);
 	if (error(2) > M_PI) {
-		error(2) = 2.0 * M_PI - error[2];
+		error(2) = 2.0 * M_PI - error(2);
 	}
 	return error;
 }

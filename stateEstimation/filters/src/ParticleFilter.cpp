@@ -38,7 +38,7 @@ namespace stateEstimation_pf
             }
             
             isInitialized = true;
-            std::cout << "The size of initial particles: " << particles.size() << std::endl;
+            //std::cout << "The size of initial particles: " << particles.size() << std::endl;
         }
     void ParticleFilter::predict(const Eigen::VectorXd& controlVec,const Eigen::MatrixXd& process_covariance,const double& dt)
         {
@@ -101,6 +101,7 @@ namespace stateEstimation_pf
                         conv_obs << converted_obs.x , converted_obs.x ;
                         curr_landmrk << current_landmark.x , current_landmark.y ;
                         double distance = utility::distance(conv_obs,curr_landmrk);
+                        
                         if(distance < distance_min)
                         {
                             distance_min = distance;
@@ -108,7 +109,7 @@ namespace stateEstimation_pf
                         }
 
                     }
-
+                    std::cout << "distance min: " << distance_min << std::endl;
                     // updating the weights of the particle using the observation
                     // we use the multi-gaussian pdf
                     Eigen::VectorXd landmrk_vector(2);
@@ -134,7 +135,7 @@ namespace stateEstimation_pf
     
     void ParticleFilter::resampleParticles()
     {
-        std::cout << "Resampling Particles" << std::endl;
+        //std::cout << "Resampling Particles" << std::endl;
         std::default_random_engine rnd_gen;
 
         std::discrete_distribution<int> distribution(weights.begin(),weights.end());
