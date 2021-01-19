@@ -98,7 +98,7 @@ namespace stateEstimation_pf
                     {
                         Map::landmark current_landmark = map->landmark_list[k];
                         Eigen::VectorXd curr_landmrk(2);
-                        conv_obs << converted_obs.x , converted_obs.x ;
+                        conv_obs << converted_obs.x , converted_obs.y ;
                         curr_landmrk << current_landmark.x , current_landmark.y ;
                         double distance = utility::distance(conv_obs,curr_landmrk);
                         
@@ -109,7 +109,7 @@ namespace stateEstimation_pf
                         }
 
                     }
-                    std::cout << "distance min: " << distance_min << std::endl;
+                    //std::cout << "distance min: " << distance_min << std::endl;
                     // updating the weights of the particle using the observation
                     // we use the multi-gaussian pdf
                     Eigen::VectorXd landmrk_vector(2);

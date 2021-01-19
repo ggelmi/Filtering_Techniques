@@ -56,8 +56,9 @@ int main()
 
     double rn_x, rn_y, rn_theta, rn_range, rn_heading;
     
-    unsigned int num_particles = 700;
+    unsigned int num_particles = 729;
     unsigned int num_iterations = gtVec.size();
+    //unsigned int num_iterations = 100;
     
     ParticleFilter* pf = new ParticleFilter(num_particles);
 
@@ -72,12 +73,11 @@ int main()
     double max_translation_error = 1;
     double max_yaw_error = 0.05;
 
-    for(int i=0; i<10; i++)
+    for(int i=0; i<num_iterations; i++)
     {
         std::cout << "Time step: " << i << std::endl;
         std::ostringstream file;
         file << "/home/guuto/filtering/Filtering_Techniques/data/pfData/observation/observations_"<<std::setfill('0')<<std::setw(6) << i+1 << ".txt";
-        //std::cout << "opening: " << file.str() << std::endl;
         std::vector<utility::observation> obsVec;
         bool ld4 = load_obs_data(file.str(),obsVec);
         if(!ld4){std::cout << "Could not open the observation file : " <<i+1 << std::endl;}
@@ -85,7 +85,6 @@ int main()
         
         if(!pf->isInitialized)
         {
-            //std::cout << "Initializing the PF" << std::endl;
             rn_x = rnd_x(rnd_gen);
             rn_y = rnd_y(rnd_gen);
             rn_theta = rnd_theta(rnd_gen);
@@ -96,9 +95,9 @@ int main()
             Eigen::VectorXd gt_vector(3);
             gt_vector << gtVec[i].x, gtVec[i].y,gtVec[i].theta;
 
-            Eigen::VectorXd g = gt_vector + rnd_vector;
+            Eigen::VectorXd prior = gt_vector + rnd_vector;
 
-            pf->initialize(g,sigma_process);
+            pf->initialize(prior,sigma_process);
             //std::cout << "AFTER Initializing the PF" << std::endl;
         }
         else
